@@ -78,8 +78,8 @@ static NSInteger pageToloade;
     else{
         OMRecipes* recipes = [self.recipesArray objectAtIndex:indexPath.row];
         cell.title.text = recipes.title;
-        cell.publisher.text = recipes.publisherName;
-        cell.rank.text = [NSString stringWithFormat:@"%ld", (long)recipes.socialRank];
+        cell.publisher.text = [NSString stringWithFormat:@"publisher:%@",recipes.publisherName];
+        cell.rank.text = [NSString stringWithFormat:@"rank:%ld", (long)recipes.socialRank];
         
         cell.image.image = nil;
         
