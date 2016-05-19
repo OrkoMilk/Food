@@ -80,13 +80,17 @@ static NSString* baseGetURL     = @"http://food2fork.com/api/get";
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     [manager GET:baseGetURL parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         
-        NSArray* objectArray = responseObject[@"recipe"][@"ingredients"];
+        NSMutableArray* objectArray = [NSMutableArray array];
+        if (![responseObject[@"recipe"] isEqual:objectArray]) {
+            objectArray = responseObject[@"recipe"][@"ingredients"];
+        }else{
+            [objectArray addObject:@"no receipt available!"];
+        }
         
         NSMutableString *stringWithDescription = [NSMutableString string];
         for (NSArray *arr in objectArray) {
             [stringWithDescription  appendString:[NSString stringWithFormat:@"%@\n",arr]];
         }
-        NSLog(@"stringWithDescription %@",stringWithDescription);
         
         if (success) {
             success(stringWithDescription);
